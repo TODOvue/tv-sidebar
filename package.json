@@ -1,0 +1,60 @@
+{
+  "name": "@todovue/tv-sidebar",
+  "private": false,
+  "author": "Cristhian Daza",
+  "description": "A versatile sidebar component for TODOvue, offering customizable layouts, themes, and responsive design options.",
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TODOvue/tv-sidebar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TODOvue/tv-sidebar/issues"
+  },
+  "keywords": [
+    "todovue",
+    "front-end",
+    "web",
+    "vue",
+    "vuejs",
+    "vue-js",
+    "tv-sidebar",
+    "show-sidebar",
+    "vue-sidebar",
+    "vue-sidebar-component"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/tv-sidebar.es.js",
+      "require": "./dist/tv-sidebar.cjs.js"
+    }
+  },
+  "main": "dist/tv-sidebar.cjs.js",
+  "module": "dist/tv-sidebar.es.js",
+  "types": "dist/tv-sidebar.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:demo": "cp README.md public/ && VITE_BUILD_TARGET=demo vite build"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "sass": "^1.0.0",
+    "vite": "^7.0.0",
+    "vite-plugin-css-injected-by-js": "^3.0.0",
+    "vite-plugin-dts": "^4.0.0"
+  }
+}

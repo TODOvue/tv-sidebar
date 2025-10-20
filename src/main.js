@@ -1,4 +1,4 @@
 import { createApp } from 'vue'
-import TvSidebar from './demo/Demo.vue'
+import Demo from './demo/Demo.vue'
 
-createApp(TvSidebar).mount('#tv-sidebar')
+createApp(Demo).mount('#tv-sidebar')

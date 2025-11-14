@@ -48,7 +48,7 @@ const {
             :src="data.image.src"
             :alt="data.image.alt"
             :class="{ 'pointer': clickable }"
-            @click="clickImage(data.image)"
+            @click="clickable && clickImage(data.image)"
           />
         </div>
       </template>

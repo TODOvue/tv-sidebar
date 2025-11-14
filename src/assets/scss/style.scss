@@ -76,7 +76,7 @@
 
       & .tv-sidebar-title-separator {
         height: 5px;
-        width: 100vw;
+        width: auto;
         position: relative;
         display: block;
         margin-top: 5px;
@@ -86,21 +86,21 @@
     & .tv-sidebar-content {
       &-ol {
         list-style: none;
-        margin: 0;
+        margin: 10px 0;
         padding: 0;
       }
 
       &-li {
-        align-items: center;
+        align-items: end;
         display: flex;
         font-size: 16px;
 
         &:first-of-type {
-          margin-top: 10px;
+          margin-top: 15px;
         }
 
         &:not(:last-child) {
-          margin-bottom: 15px;
+          margin-bottom: 20px;
         }
 
         & .tv-sidebar-number {

@@ -1,9 +1,6 @@
 import { computed } from 'vue';
 
 const useSidebar = (props, emit) => {
-  const linkComponent = computed(() =>
-    props.linkTag === 'nuxt-link' ? 'nuxt-link' : 'router-link'
-  );
   const limitedLists = computed(() => {
     if (!props.data) {
       return {};
@@ -28,11 +25,20 @@ const useSidebar = (props, emit) => {
     emit('clickLabel', label);
     emit('click', label);
   };
+
+  const clickItem = (item) => {
+    emit('click', item);
+  };
+
+  const clickImage = (image) => {
+    emit('click', image);
+  };
   
   return {
-    linkComponent,
     limitedList,
-    clickLabel
+    clickLabel,
+    clickItem,
+    clickImage
   };
 };
 

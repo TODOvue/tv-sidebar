@@ -7,10 +7,6 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
-  linkTag: {
-    type: String,
-    default: "router-link",
-  },
   isImage: {
     type: Boolean,
     default: false,
@@ -29,12 +25,13 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['clickButton', 'click']);
+const emit = defineEmits(['clickLabel', 'click']);
 
 const {
-  linkComponent,
   limitedList,
   clickLabel,
+  clickItem,
+  clickImage,
 } = useSidebar(props, emit);
 </script>
 
@@ -47,18 +44,12 @@ const {
           <div class="tv-sidebar-title-separator"></div>
         </div>
         <div class="tv-sidebar-image-container">
-          <template v-if="clickable">
-            <component :is="linkComponent" :to="data.image.link">
-              <img
-                :src="data.image.src"
-                :alt="data.image.alt"
-                class="pointer"
-              />
-            </component>
-          </template>
-          <template v-else>
-            <img :src="data.image.src" :alt="data.image.alt" />
-          </template>
+          <img
+            :src="data.image.src"
+            :alt="data.image.alt"
+            :class="{ 'pointer': clickable }"
+            @click="clickImage(data.image)"
+          />
         </div>
       </template>
       <template v-else-if="isLabel">
@@ -89,9 +80,10 @@ const {
             :key="item.id"
           >
             <li class="tv-sidebar-content-li">
-              <component :is="linkComponent" :to="item.link" class="pointer">
-                <span>{{ index + 1 }}.</span>{{ item.title }}
-              </component>
+              <span class="tv-sidebar-number">{{ index + 1 }}.</span>
+              <span class="tv-sidebar-link pointer" @click="clickItem(item)">
+                {{ item.title }}
+              </span>
             </li>
           </ol>
         </div>

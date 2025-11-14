@@ -211,6 +211,10 @@ const labels = [
   },
 ];
 
+const onClickItem = (item) => {
+  console.log("Item clicked:", item);
+}
+
 export const demos = [
   {
     id: 1,
@@ -221,6 +225,7 @@ export const demos = [
         title: "Most Popular Blogs",
         list,
       },
+      onClick: onClickItem,
     },
     description: "A sidebar using default settings without any props.",
     html: Default,
@@ -235,6 +240,7 @@ export const demos = [
         title: "Recent Blog Posts",
         list,
       },
+      onClick: onClickItem,
     },
     html: DefaultWithLimit,
   },
@@ -247,6 +253,7 @@ export const demos = [
         title: "Categories",
         labels: labels,
       },
+      onClick: onClickItem,
     },
     html: Categories,
   },
@@ -260,6 +267,7 @@ export const demos = [
         title: "Categories",
         labels: labels,
       },
+      onClick: onClickItem,
     },
     html: CategoriesWithLimit,
   },
@@ -293,6 +301,7 @@ export const demos = [
         },
       },
       clickable: true,
+      onClick: onClickItem,
     },
     html: ImageClickable,
   }

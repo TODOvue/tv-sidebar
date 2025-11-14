@@ -15,7 +15,11 @@
       }
     }
     & .tv-sidebar-content-li {
-      span {
+      & .tv-sidebar-number {
+        color: variables.$dark-text;
+      }
+
+      & .tv-sidebar-link {
         color: variables.$dark-text;
       }
     }
@@ -34,8 +38,12 @@
       }
     }
     & .tv-sidebar-content-li {
-      span {
-        color: variables.$light-card-bg;
+      & .tv-sidebar-number {
+        color: variables.$light-text;
+      }
+
+      & .tv-sidebar-link {
+        color: variables.$light-text;
       }
     }
   }
@@ -95,9 +103,15 @@
           margin-bottom: 15px;
         }
 
-        span {
+        & .tv-sidebar-number {
           font-size: 34px;
           margin-right: 10px;
+        }
+
+        & .tv-sidebar-link {
+          font-size: 16px;
+          flex: 1;
+          line-height: 1.4;
         }
       }
 

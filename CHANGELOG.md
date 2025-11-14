@@ -5,7 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
----
+## [2.0.0] - 2025-11-13
+
+### 🛠️ Changed
+- **BREAKING**: Removed navigation functionality - component no longer uses router links
+- **BREAKING**: Removed `linkTag` prop - component now always emits events instead of navigating
+- List items now use `<span>` elements with click handlers instead of router components
+- All interactive elements (text items, labels, and images) now emit `click` event with the complete data object
+- Image mode now always emits click event with image object when clicked
+
+### ✨ Added
+- `clickItem` method in `useSidebar` composable to handle text item clicks
+- `clickImage` method in `useSidebar` composable to handle image clicks
+- Enhanced event emission: all item types (text, labels, images) now consistently emit the full object on click
+
+### 🚫 Removed
+- `linkTag` prop (no longer needed without navigation)
+- `clickable` prop (no longer needed as all items are clickable by default)
+- `linkComponent` computed property from `useSidebar` composable
+- Router/Nuxt link dependencies
+
+### 🐛 Fixed
+- Maintained original styling for text items after changing from router links to span elements
+- Proper color application for both dark and light modes
+- Consistent hover states and cursor pointers for all clickable elements
+
 ## [1.0.0] - 2025-01-19
 
 ### Added
@@ -78,4 +102,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Node.js >= 20.19.0 required
 
 ---
+[2.0.0]: https://github.com/TODOvue/tv-sidebar/pull/2/files
 [1.0.0]: https://github.com/TODOvue/tv-sidebar/pull/1/files

@@ -1,13 +1,13 @@
 <template>
   <!-- The link tag is sent to be used in the blog with nuxt -->
-  <tv-sidebar linkTag="nuxt-link" :data="list" />
+  <tv-sidebar :data="list" :limit="5" />
 </template>
 
 <script>
 import { TvSidebar } from '@todovue/tv-sidebar';
 
 const list = {
-  title: "Most Popular Blogs",
+  title: "Recent Blog Posts",
   list: [
     {
       id: 1,

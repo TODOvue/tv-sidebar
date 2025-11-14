@@ -26,7 +26,7 @@ A versatile and flexible Vue 3 sidebar component with multiple display modes: li
   - [With Limit](#with-limit)
 - [Data Structure](#data-structure)
 - [Styling](#styling)
-- [Router Integration](#router-integration)
+- [Navigation Handling](#navigation-handling)
 - [Accessibility](#accessibility)
 - [SSR Notes](#ssr-notes)
 - [Development](#development)
@@ -36,9 +36,9 @@ A versatile and flexible Vue 3 sidebar component with multiple display modes: li
 ---
 ## Features
 - **Three display modes**: List, Categories (labels), and Image
-- **Flexible routing**: Works with Vue Router (`router-link`) and Nuxt (`nuxt-link`)
+- **Event-driven interactions**: No built-in navigation; emits click events with full objects
 - **Item limit**: Control how many items to display with the `limit` prop
-- **Clickable images**: Optional clickable images that navigate on click
+- **Optional clickable images**: Enable with `clickable` to emit click events for images
 - **Label/Category support**: Display colored category labels with click events
 - **Responsive design**: Adapts to different screen sizes
 - **SSR compatible**: Works seamlessly in Nuxt 3 and SSR contexts
@@ -112,11 +112,7 @@ export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.vueApp.use(TvSidebar)
 })
 ```
-Use anywhere with Nuxt routing:
-```vue
-<TvSidebar linkTag="nuxt-link" :data="sidebarData" />
-```
-Optional direct import (no plugin):
+Use anywhere (no router dependency required):
 ```vue
 <script setup>
 import { TvSidebar } from '@todovue/tv-sidebar'
@@ -133,21 +129,20 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 
 ---
 ## Props
-| Prop      | Type    | Default        | Description                                                              |
-|-----------|---------|----------------|--------------------------------------------------------------------------|
-| data      | Object  | `{}`           | Main data object containing title and content (list, labels, or image).  |
-| linkTag   | String  | `'router-link'`| Component to use for links: `'router-link'` or `'nuxt-link'`.            |
-| isImage   | Boolean | `false`        | Enables image display mode.                                              |
-| isLabel   | Boolean | `false`        | Enables categories/labels display mode.                                  |
-| limit     | Number  | `0`            | Maximum number of items to display (0 = show all).                       |
-| clickable | Boolean | `false`        | Makes images clickable (only applies in image mode).                     |
+| Prop      | Type    | Default | Description                                                                                                                              |
+|-----------|---------|---------|------------------------------------------------------------------------------------------------------------------------------------------|
+| data      | Object  | `{}`    | Main data object containing title and content (list, labels, or image).                                                                  |
+| isImage   | Boolean | `false` | Enables image display mode.                                                                                                              |
+| isLabel   | Boolean | `false` | Enables categories/labels display mode.                                                                                                  |
+| limit     | Number  | `0`     | Maximum number of items to display (0 = show all).                                                                                       |
+| clickable | Boolean | `false` | When `true` and `isImage`, the image becomes interactive and emits a `click` event with the image object. When `false`, image is static. |
 
 ---
 ## Events
-| Event name (kebab) | Emits (camel) | Description                                        |
-|--------------------|---------------|----------------------------------------------------|
-| `clickLabel`       | `clickLabel`  | Emitted when a label/category is clicked.          |
-| `click`            | `click`       | Native click passthrough (also emitted for labels).|
+| Event name (kebab) | Emits (camel) | Description                                                                                                                                         |
+|--------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `clickLabel`       | `clickLabel`  | Emitted when a label/category is clicked (also emits `click` with same object).                                                                     |
+| `click`            | `click`       | Emitted when a list item is clicked, when a label is clicked, and when an image is clicked (if `clickable`). The payload is always the full object. |
 
 Usage:
 ```vue
@@ -155,6 +150,7 @@ Usage:
   isLabel 
   :data="categoriesData" 
   @clickLabel="handleCategoryClick"
+  @click="handleAnyClick"
 />
 ```
 
@@ -162,7 +158,7 @@ Usage:
 ## Usage Examples
 
 ### Default List Mode
-Display a numbered list of links:
+Display a numbered list of items that emit the full object on click:
 ```vue
 <script setup>
 import { TvSidebar } from '@todovue/tv-sidebar'
@@ -170,27 +166,18 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 const listData = {
   title: "Most Popular Blogs",
   list: [
-    {
-      id: 1,
-      title: "10 Tips for Creating a Successful YouTube Channel",
-      link: "/blog/youtube-tips",
-    },
-    {
-      id: 2,
-      title: "The Benefits of Meditation and How to Get Started",
-      link: "/blog/meditation",
-    },
-    {
-      id: 3,
-      title: "The Top 5 Destinations for Adventure Travel",
-      link: "/blog/adventure-travel",
-    }
-  ]
+    {id: 1, title: "10 Tips for Creating a Successful YouTube Channel", link: "/blog/youtube-tips"},
+    {id: 2, title: "The Benefits of Meditation and How to Get Started", link: "/blog/meditation"},
+    {id: 3, title: "The Top 5 Destinations for Adventure Travel", link: "/blog/adventure-travel"}
+  ],
+}
+function handleItemClick(item) {
+  console.log('Item clicked:', item)
 }
 </script>
 
 <template>
-  <TvSidebar :data="listData" />
+  <TvSidebar :data="listData" @click="handleItemClick" />
 </template>
 ```
 
@@ -242,7 +229,7 @@ function handleCategoryClick(category) {
 ```
 
 ### Image Mode
-Display an image with title:
+Display an image with title. Make it interactive with `clickable` if desired:
 ```vue
 <script setup>
 import { TvSidebar } from '@todovue/tv-sidebar'
@@ -253,7 +240,10 @@ const imageData = {
     src: "https://todovue.com/vue.webp",
     alt: "TODOvue Logo",
     link: "https://todovue.com/"
-  }
+  },
+}
+function handleImageClick(image) {
+  console.log('Image clicked:', image)
 }
 </script>
 
@@ -261,8 +251,8 @@ const imageData = {
   <!-- Non-clickable image -->
   <TvSidebar isImage :data="imageData" />
   
-  <!-- Clickable image that navigates -->
-  <TvSidebar isImage clickable :data="imageData" />
+  <!-- Clickable image that emits the image object -->
+  <TvSidebar isImage clickable :data="imageData" @click="handleImageClick" />
 </template>
 ```
 
@@ -279,24 +269,11 @@ Limit the number of displayed items:
 ```
 
 ### Nuxt Integration
-Using with Nuxt routing:
-```vue
-<script setup>
-import { TvSidebar } from '@todovue/tv-sidebar'
-
-const blogPosts = {
-  title: "Recent Posts",
-  list: [
-    { id: 1, title: "Getting Started with Nuxt 3", link: "/blog/nuxt-3" },
-    { id: 2, title: "Vue Composition API", link: "/blog/composition-api" }
-  ]
-}
-</script>
-
-<template>
-  <TvSidebar linkTag="nuxt-link" :data="blogPosts" />
-</template>
+```diff
+- Using with Nuxt routing:
+- <TvSidebar linkTag="nuxt-link" :data="blogPosts" />
 ```
+Nuxt works without router integration in the component. Handle navigation in your click handlers (see Navigation Handling below).
 
 ---
 ## Data Structure
@@ -308,7 +285,7 @@ const blogPosts = {
   list: Array<{
     id: number | string,
     title: string,
-    link: string
+    link?: string // optional; use in your click handler if you want to navigate
   }>
 }
 ```
@@ -332,7 +309,7 @@ const blogPosts = {
   image: {
     src: string,    // Image URL
     alt: string,    // Alt text for accessibility
-    link: string    // Link URL (used when clickable=true)
+    link?: string   // optional; use in your click handler for manual navigation
   }
 }
 ```
@@ -343,7 +320,7 @@ The component uses SCSS for styling. Styles are automatically included when you 
 - Clean, minimal design
 - Responsive layout
 - Title with separator line
-- Hover effects on links
+- Hover effects on interactive items
 - Proper spacing and typography
 
 To customize styles, you can override the CSS classes:
@@ -366,27 +343,38 @@ To customize styles, you can override the CSS classes:
 ```
 
 ---
-## Router Integration
-The component automatically adapts to your routing solution:
-
-**Vue Router (SPA)**:
+## Navigation Handling
+Since the component does not perform navigation, handle it in your click handlers. Example with Vue Router:
 ```vue
-<TvSidebar linkTag="router-link" :data="data" />
-```
+<script setup>
+import { TvSidebar } from '@todovue/tv-sidebar'
+import { useRouter } from 'vue-router'
 
-**Nuxt Router (SSR)**:
-```vue
-<TvSidebar linkTag="nuxt-link" :data="data" />
-```
+const router = useRouter()
 
-The `linkComponent` computed property in the composable handles the dynamic component resolution.
+const listData = {
+  title: 'Recent Posts',
+  list: [
+    { id: 1, title: 'Getting Started with Nuxt 3', link: '/blog/nuxt-3' },
+    { id: 2, title: 'Vue Composition API', link: '/blog/composition-api' }
+  ]
+}
+
+function handleClick(item) {
+  if (item?.link) router.push(item.link)
+}
+</script>
+
+<template>
+  <TvSidebar :data="listData" @click="handleClick" />
+</template>
+```
 
 ---
 ## Accessibility
-- Semantic HTML structure with proper heading hierarchy
+- Semantic structure with clear headings
 - Alt text support for images
-- Link text for screen readers
-- Keyboard navigation support through native link elements
+- Interactive items emit click events; if you need keyboard accessibility, consider handling `keydown` (Enter/Space) on your side or wrapping with accessible elements/roles
 - Color contrast considerations for labels
 
 ---
@@ -394,8 +382,7 @@ The `linkComponent` computed property in the composable handles the dynamic comp
 - No direct DOM access (`window` / `document`) → safe for SSR
 - Compatible with Nuxt 3 out of the box
 - Styles are bundled and auto-imported
-- Dynamic component resolution works in both client and server contexts
-- Use `linkTag="nuxt-link"` for Nuxt applications
+- No router/nuxt-link dependency inside the component
 
 ---
 ## Development

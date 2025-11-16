@@ -1,27 +1,25 @@
 @use "variables";
 @use "mixins";
-@use "global";
 @use "sass:color";
+@import "@todovue/tv-label/style.css";
 
-.dark-mode {
-  & .tv-sidebar-body {
-    & .tv-sidebar-title {
-      h1 {
-        @include mixins.backgroundColorAndTextColor(variables.$dark-card-bg, variables.$dark-text);
-      }
-
-      & .tv-sidebar-title-separator {
-        background: variables.$dark-card-bg;
-      }
+.tv-sidebar-body {
+  & .tv-sidebar-title {
+    h1 {
+      @include mixins.backgroundColorAndTextColor(variables.$dark-card-bg, variables.$dark-text);
     }
-    & .tv-sidebar-content-li {
-      & .tv-sidebar-number {
-        color: variables.$dark-text;
-      }
 
-      & .tv-sidebar-link {
-        color: variables.$dark-text;
-      }
+    & .tv-sidebar-title-separator {
+      background: variables.$dark-card-bg;
+    }
+  }
+  & .tv-sidebar-content-li {
+    & .tv-sidebar-number {
+      color: variables.$dark-text;
+    }
+
+    & .tv-sidebar-link {
+      color: variables.$dark-text;
     }
   }
 }

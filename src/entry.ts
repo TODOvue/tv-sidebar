@@ -1,4 +1,5 @@
 import TvSidebar from './components/TvSidebar.vue'
+import './style.scss'
 
 (TvSidebar as any).install = (app: any) => {
     app.component('TvSidebar', TvSidebar)

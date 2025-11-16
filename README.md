@@ -5,8 +5,15 @@
 A versatile and flexible Vue 3 sidebar component with multiple display modes: lists, categories (labels), and images. Perfect for blogs, documentation sites, and web applications requiring sidebar navigation or content display. Compatible with both SPA and SSR environments (e.g. Nuxt 3).
 
 [![npm](https://img.shields.io/npm/v/@todovue/tv-sidebar.svg)](https://www.npmjs.com/package/@todovue/tv-sidebar)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/faaad925-f13f-4656-9692-4a1f5e550857/deploy-status)](https://app.netlify.com/projects/tv-sidebar/deploys)
 [![npm downloads](https://img.shields.io/npm/dm/@todovue/tv-sidebar.svg)](https://www.npmjs.com/package/@todovue/tv-sidebar)
+[![npm total downloads](https://img.shields.io/npm/dt/@todovue/tv-sidebar.svg)](https://www.npmjs.com/package/@todovue/tv-sidebar)
 ![License](https://img.shields.io/github/license/TODOvue/tv-sidebar)
+![Release Date](https://img.shields.io/github/release-date/TODOvue/tv-sidebar)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/@todovue/tv-sidebar)
+![Node Version](https://img.shields.io/node/v/@todovue/tv-sidebar)
+![Last Commit](https://img.shields.io/github/last-commit/TODOvue/tv-sidebar)
+![Stars](https://img.shields.io/github/stars/TODOvue/tv-sidebar?style=social)
 
 > Demo: https://tv-sidebar.netlify.app/
 
@@ -103,6 +110,14 @@ const sidebarData = {
 
 ---
 ## Nuxt 3 / SSR Usage
+Add the stylesheet to your `nuxt.config.ts`:
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  css: ['@todovue/tv-sidebar/style.css'],
+})
+```
+
 Create a plugin file: `plugins/tv-sidebar.client.ts` (or without `.client` suffix for SSR):
 ```ts
 import { defineNuxtPlugin } from '#app'

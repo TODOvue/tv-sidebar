@@ -25,11 +25,17 @@
     "vue-sidebar",
     "vue-sidebar-component"
   ],
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "dist/*.css"
+  ],
   "exports": {
     ".": {
       "import": "./dist/tv-sidebar.es.js",
       "require": "./dist/tv-sidebar.cjs.js"
-    }
+    },
+    "./style.css": "./dist/tv-sidebar.css"
   },
   "main": "dist/tv-sidebar.cjs.js",
   "module": "dist/tv-sidebar.es.js",
@@ -55,7 +61,6 @@
     "@vitejs/plugin-vue": "^6.0.0",
     "sass": "^1.0.0",
     "vite": "^7.0.0",
-    "vite-plugin-css-injected-by-js": "^3.0.0",
     "vite-plugin-dts": "^4.0.0"
   },
   "dependencies": {

@@ -5,6 +5,7 @@
 
 <script>
 import { TvSidebar } from '@todovue/tv-sidebar';
+import '@todovue/tv-sidebar/style.css';
 
 const image = {
   title: "TODOvue Blog",

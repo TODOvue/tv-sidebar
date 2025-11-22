@@ -6,6 +6,7 @@
 <script>
 import { TvSidebar } from '@todovue/tv-sidebar';
 import '@todovue/tv-sidebar/style.css';
+import '@todovue/tv-label/style.css';
 
 const labels = {
   title: "Categories",

@@ -35,7 +35,8 @@
       "import": "./dist/tv-sidebar.es.js",
       "require": "./dist/tv-sidebar.cjs.js"
     },
-    "./style.css": "./dist/tv-sidebar.css"
+    "./style.css": "./dist/tv-sidebar.css",
+    "./nuxt": "./nuxt.js"
   },
   "main": "dist/tv-sidebar.cjs.js",
   "module": "dist/tv-sidebar.es.js",
@@ -43,7 +44,8 @@
   "files": [
     "dist",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "nuxt.js"
   ],
   "engines": {
     "node": ">=20.19.0"
@@ -51,19 +53,19 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:demo": "cp README.md public/ && VITE_BUILD_TARGET=demo vite build"
+    "build:demo": "cp README.md public/ && cp CHANGELOG.md public/ && VITE_BUILD_TARGET=demo vite build"
   },
   "peerDependencies": {
     "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@todovue/tv-demo": "^1.0.0",
+    "@todovue/tv-demo": "^1.2.1",
     "@vitejs/plugin-vue": "^6.0.0",
     "sass": "^1.0.0",
     "vite": "^7.0.0",
     "vite-plugin-dts": "^4.0.0"
   },
   "dependencies": {
-    "@todovue/tv-label": "^1.0.0"
+    "@todovue/tv-label": "^1.1.1"
   }
 }

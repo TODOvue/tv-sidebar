@@ -5,15 +5,15 @@ import { demos } from './utils/mocks.js'
 </script>
 
 <template>
-  <tv-demo
+  <TvDemo
     :component="TvSidebar"
     :variants="demos"
     hide-background
-    nameComponent="TvSidebar"
-    npmInstall="@todovue/tv-sidebar"
-    sourceLink="https://github.com/TODOvue/tv-sidebar"
-    urlClone="https://github.com/TODOvue/tv-sidebar.git"
-    version="2.0.2"
+    component-name="TvSidebar"
+    npm-install="@todovue/tv-sidebar"
+    source-link="https://github.com/TODOvue/tv-sidebar"
+    url-clone="https://github.com/TODOvue/tv-sidebar.git"
+    version="2.1.0"
   />
 </template>
 

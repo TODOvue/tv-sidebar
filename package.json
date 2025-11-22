@@ -4,7 +4,7 @@
   "author": "Cristhian Daza",
   "description": "A versatile sidebar component for TODOvue, offering customizable layouts, themes, and responsive design options.",
   "license": "MIT",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "type": "module",
   "repository": {
     "type": "git",

@@ -233,6 +233,7 @@ export const demos = [
   {
     id: 2,
     title: "TvSidebar shows a list of entries with limit 5",
+    description: "A sidebar showing a list of entries limited to 5 items.",
     propsData: {
       linkTag: "nuxt-link",
       limit: 5,
@@ -247,6 +248,7 @@ export const demos = [
   {
     id: 3,
     title: "TvSidebar shows a list of categories",
+    description: "A sidebar showing a list of categories without any limit.",
     propsData: {
       isLabel: true,
       data: {
@@ -260,6 +262,7 @@ export const demos = [
   {
     id: 4,
     title: "TvSidebar shows a list of categories with limit 5",
+    description: "A sidebar showing a list of categories limited to 5 items.",
     propsData: {
       isLabel: true,
       limit: 5,
@@ -274,14 +277,15 @@ export const demos = [
   {
     id: 5,
     title: "TvSidebar image not clickable",
+    description: "A sidebar showing an image that is not clickable.",
     propsData: {
       isImage: true,
       data: {
         title: "TODOvue Blog",
         image: {
-          src: "https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/vue.webp?alt=media&token=7b717129-29c3-4f36-846d-c0243b28e216",
+          src: "https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763701508/jarnmxxvmhbisvpzzfwu.webp",
           alt: "TODOvue Blog",
-          link: "https://todovue.com/",
+          link: "https://todo-vue.com/",
         },
       },
     },
@@ -290,14 +294,15 @@ export const demos = [
   {
     id: 6,
     title: "TvSidebar image clickable",
+    description: "A sidebar showing an image that is clickable.",
     propsData: {
       isImage: true,
       data: {
         title: "TODOvue Blog",
         image: {
-          src: "https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/vue.webp?alt=media&token=7b717129-29c3-4f36-846d-c0243b28e216",
+          src: "https://res.cloudinary.com/dcdfhi8qz/image/upload/v1760726744/wd69oziqjrsgjuna1bon.png",
           alt: "TODOvue Blog",
-          link: "https://todovue.com/",
+          link: "https://cris-dev.com/",
         },
       },
       clickable: true,

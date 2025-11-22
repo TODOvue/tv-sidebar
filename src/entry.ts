@@ -1,15 +1,21 @@
-import TvSidebar from './components/TvSidebar.vue'
+import type { App, Plugin } from 'vue'
+import _TvSidebar from './components/TvSidebar.vue'
 import './style.scss'
 
-(TvSidebar as any).install = (app: any) => {
-    app.component('TvSidebar', TvSidebar)
+const TvSidebar = _TvSidebar as typeof _TvSidebar & Plugin;
+TvSidebar.install = (app: App) => {
+  app.component('TvSidebar', TvSidebar)
 };
 
-export const TvSidebarPlugin = {
-    install(app: any) {
-        app.component('TvSidebar', TvSidebar)
-    }
-}
-
 export { TvSidebar }
-export default TvSidebar
+
+export const TvSidebarPlugin: Plugin = {
+  install: TvSidebar.install
+};
+export default TvSidebar;
+
+declare module 'vue' {
+  export interface GlobalComponents {
+    TvSidebar: typeof TvSidebar;
+  }
+}

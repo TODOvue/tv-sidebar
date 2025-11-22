@@ -1,4 +1,4 @@
-<p align="center"><img width="150" src="https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/logo.png?alt=media&token=d8eb592f-e4a9-4b02-8aff-62d337745f41" alt="TODOvue logo">
+<p align="center"><img width="150" src="https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png" alt="TODOvue logo">
 </p>
 
 # TODOvue Sidebar (TvSidebar)
@@ -76,6 +76,8 @@ Global registration (main.js / main.ts):
 import { createApp } from 'vue'
 import App from './App.vue'
 import TvSidebar from '@todovue/tv-sidebar'
+import '@todovue/tv-sidebar/style.css' // import styles
+import '@todovue/tv-label/style.css' // import styles
 
 createApp(App)
   .use(TvSidebar) // enables <TvSidebar /> globally
@@ -85,6 +87,8 @@ Local import inside a component:
 ```vue
 <script setup>
 import { TvSidebar } from '@todovue/tv-sidebar'
+import '@todovue/tv-sidebar/style.css' // import styles
+import '@todovue/tv-label/style.css' // import styles
 
 const sidebarData = {
   title: "Most Popular Blogs",
@@ -114,7 +118,9 @@ Add the stylesheet to your `nuxt.config.ts`:
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  css: ['@todovue/tv-sidebar/style.css'],
+  modules: [
+    '@todovue/tv-card/nuxt'
+  ]
 })
 ```
 

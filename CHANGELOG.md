@@ -136,7 +136,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minimal bundle size with external Vue dependency
 - Node.js >= 20.19.0 required
 
-[2.1.0]: https://github.com/TODOvue/tv-sidebar/pull/5/files
+[2.1.0]: https://github.com/TODOvue/tv-sidebar/pull/6/files
 [2.0.2]: https://github.com/TODOvue/tv-sidebar/pull/4/files
 [2.0.1]: https://github.com/TODOvue/tv-sidebar/pull/3/files
 [2.0.0]: https://github.com/TODOvue/tv-sidebar/pull/2/files

@@ -13,7 +13,7 @@ import { demos } from './utils/mocks.js'
     npm-install="@todovue/tv-sidebar"
     source-link="https://github.com/TODOvue/tv-sidebar"
     url-clone="https://github.com/TODOvue/tv-sidebar.git"
-    version="2.1.0"
+    version="2.1.1"
   />
 </template>
 

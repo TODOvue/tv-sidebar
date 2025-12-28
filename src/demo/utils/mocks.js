@@ -300,7 +300,7 @@ export const demos = [
       data: {
         title: "TODOvue Blog",
         image: {
-          src: "https://res.cloudinary.com/dcdfhi8qz/image/upload/v1760726744/wd69oziqjrsgjuna1bon.png",
+          src: "https://cris-dev.com/images/projects/crisDev.png",
           alt: "TODOvue Blog",
           link: "https://cris-dev.com/",
         },

@@ -285,7 +285,6 @@ export const demos = [
         image: {
           src: "https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763701508/jarnmxxvmhbisvpzzfwu.webp",
           alt: "TODOvue Blog",
-          link: "https://todo-vue.com/",
         },
       },
     },
@@ -300,9 +299,9 @@ export const demos = [
       data: {
         title: "TODOvue Blog",
         image: {
-          src: "https://cris-dev.com/images/projects/crisDev.png",
+          src: "https://cris-dev.com/images/projects/TODOvue.png",
           alt: "TODOvue Blog",
-          link: "https://cris-dev.com/",
+          link: "https://todovue.blog",
         },
       },
       clickable: true,

@@ -8,6 +8,7 @@ import { demos } from './utils/mocks.js'
   <TvDemo
     :component="TvSidebar"
     :variants="demos"
+    :manual-emits="['clickLabel', 'click', 'clickImage']"
     hide-background
     component-name="TvSidebar"
     npm-install="@todovue/tv-sidebar"

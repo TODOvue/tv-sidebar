@@ -85,13 +85,54 @@ const useSidebar = (props, emit, searchQuery) => {
     emit('click', image);
   };
 
+  const groupedLists = computed(() => {
+    if (!props.data || !props.data.groups) {
+      return [];
+    }
+
+    return props.data.groups.map(group => {
+      const items = group.items || [];
+      const limit = props.limit > 0 ? props.limit : items.length;
+      return {
+        ...group,
+        items: items.slice(0, limit)
+      };
+    });
+  });
+
+  const filteredGroupedLists = computed(() => {
+    if (!props.data || !props.data.groups || !searchQuery || !searchQuery.value) {
+      return groupedLists.value;
+    }
+
+    const query = searchQuery.value.toLowerCase().trim();
+    if (!query) {
+      return groupedLists.value;
+    }
+
+    return groupedLists.value.map(group => {
+      const filteredItems = (group.items || []).filter(item =>
+        item.title && item.title.toLowerCase().includes(query)
+      );
+      return {
+        ...group,
+        items: filteredItems
+      };
+    }).filter(group => group.items.length > 0); // Hide empty groups
+  });
+
+  const getGroupedList = () => {
+    return filteredGroupedLists.value;
+  };
+
   return {
     limitedList,
     filteredList,
     highlightText,
     clickLabel,
     clickItem,
-    clickImage
+    clickImage,
+    getGroupedList
   };
 };
 

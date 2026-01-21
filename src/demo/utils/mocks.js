@@ -7,6 +7,9 @@ import ImageClickable from './demos/imageClickable.vue?raw';
 import CategoriesCustom from './demos/categoriesCustom.vue?raw';
 import SearchableList from './demos/searchableList.vue?raw';
 import SearchableLabels from './demos/searchableLabels.vue?raw';
+import GroupedList from './demos/groupedList.vue?raw';
+import GroupedListWithSearch from './demos/groupedListWithSearch.vue?raw';
+import GroupedListWithLimit from './demos/groupedListWithLimit.vue?raw';
 
 const list = [
   {
@@ -214,6 +217,83 @@ const labels = [
   },
 ];
 
+const groupedBlogPosts = {
+  title: "Blog Posts",
+  groups: [
+    {
+      id: 1,
+      name: "Technical",
+      collapsed: false,
+      items: [
+        {
+          id: 1,
+          title: "10 Tips for Creating a Successful YouTube Channel",
+          link: "/10-tips-for-creating-a-successful-youtube-channel",
+        },
+        {
+          id: 2,
+          title: "The Benefits of Meditation and How to Get Started",
+          link: "/the-benefits-of-meditation-and-how-to-get-started",
+        },
+        {
+          id: 7,
+          title: "How to Create High-Quality Visual Content for Your Blog",
+          link: "/how-to-create-high-quality-visual-content-for-your-blog",
+        },
+        {
+          id: 8,
+          title: "The Power of Email Marketing for Your Blog",
+          link: "/the-power-of-email-marketing-for-your-blog",
+        },
+      ]
+    },
+    {
+      id: 2,
+      name: "Lifestyle",
+      collapsed: true,
+      items: [
+        {
+          id: 4,
+          title: "Why You Should Consider a Plant-Based Diet",
+          link: "/why-you-should-consider-a-plant-based-diet",
+        },
+        {
+          id: 5,
+          title: "The Pros and Cons of Remote Work",
+          link: "/the-pros-and-cons-of-remote-work",
+        },
+        {
+          id: 9,
+          title: "Why Branding is Essential for Your Blog",
+          link: "/why-branding-is-essential-for-your-blog",
+        },
+      ]
+    },
+    {
+      id: 3,
+      name: "Travel",
+      collapsed: false,
+      items: [
+        {
+          id: 3,
+          title: "The Top 5 Destinations for Adventure Travel",
+          link: "/the-top-5-destinations-for-adventure-travel",
+        },
+        {
+          id: 6,
+          title: "The Benefits of Guest Blogging",
+          link: "/the-benefits-of-guest-blogging",
+        },
+        {
+          id: 10,
+          title: "How to Stay Motivated as a Blogger",
+          link: "/how-to-stay-motivated-as-a-blogger",
+        },
+      ]
+    }
+  ]
+};
+
 const onClickItem = (item) => {
   console.log("Item clicked:", item);
 }
@@ -363,5 +443,42 @@ export const demos = [
       onSearch: onSearch,
     },
     html: SearchableLabels,
+  },
+  {
+    id: 10,
+    title: "TvSidebar with grouped/categorized mode",
+    description: "A sidebar showing blog posts organized by categories with collapsible sections.",
+    propsData: {
+      grouped: true,
+      data: groupedBlogPosts,
+      onClick: onClickItem,
+    },
+    html: GroupedList,
+  },
+  {
+    id: 11,
+    title: "TvSidebar with grouped mode and search",
+    description: "A sidebar with grouped posts and search functionality to filter across all groups.",
+    propsData: {
+      grouped: true,
+      searchable: true,
+      searchPlaceholder: "Search posts...",
+      data: groupedBlogPosts,
+      onClick: onClickItem,
+      onSearch: onSearch,
+    },
+    html: GroupedListWithSearch,
+  },
+  {
+    id: 12,
+    title: "TvSidebar with grouped mode and limit",
+    description: "A sidebar with grouped posts limited to 2 items per group.",
+    propsData: {
+      grouped: true,
+      limit: 2,
+      data: groupedBlogPosts,
+      onClick: onClickItem,
+    },
+    html: GroupedListWithLimit,
   },
 ];

@@ -41,6 +41,10 @@ const props = defineProps({
     type: String,
     default: 'Search...',
   },
+  grouped: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['click', 'search']);
@@ -57,7 +61,29 @@ const {
   clickLabel,
   clickItem,
   clickImage,
+  getGroupedList,
 } = useSidebar(props, emit, searchQuery);
+
+const collapsedGroups = ref(new Map());
+
+watch(() => props.data?.groups, (groups) => {
+  if (groups && props.grouped) {
+    groups.forEach(group => {
+      if (!collapsedGroups.value.has(group.id)) {
+        collapsedGroups.value.set(group.id, group.collapsed || false);
+      }
+    });
+  }
+}, { immediate: true });
+
+const toggleGroup = (groupId) => {
+  const currentState = collapsedGroups.value.get(groupId) || false;
+  collapsedGroups.value.set(groupId, !currentState);
+};
+
+const isGroupCollapsed = (groupId) => {
+  return collapsedGroups.value.get(groupId) || false;
+};
 </script>
 
 <template>
@@ -109,6 +135,47 @@ const {
           >
             <span v-html="highlightText(label.name, searchQuery)"></span>
           </tv-label>
+        </div>
+      </template>
+      <template v-else-if="grouped">
+        <div class="tv-sidebar-title">
+          <h1>{{ data.title }}</h1>
+          <div class="tv-sidebar-title-separator"></div>
+        </div>
+        <div v-if="searchable" class="tv-sidebar-search">
+          <input
+            v-model="searchQuery"
+            type="text"
+            :placeholder="searchPlaceholder"
+            class="tv-sidebar-search-input"
+          />
+        </div>
+        <div class="tv-sidebar-grouped-content">
+          <div
+            v-for="group in getGroupedList()"
+            :key="group.id"
+            class="tv-sidebar-group"
+          >
+            <div class="tv-sidebar-group-header" @click="toggleGroup(group.id)">
+              <div class="tv-sidebar-group-header-content">
+                <span class="tv-sidebar-group-icon">{{ isGroupCollapsed(group.id) ? '▶' : '▼' }}</span>
+                <span class="tv-sidebar-group-title">{{ group.name }}</span>
+                <span class="tv-sidebar-group-counter">{{ group.items.length }}</span>
+              </div>
+            </div>
+            <div v-if="!isGroupCollapsed(group.id)" class="tv-sidebar-group-content">
+              <div
+                v-for="(item, index) in group.items"
+                :key="item.id"
+                class="tv-sidebar-group-item"
+              >
+                <span class="tv-sidebar-item-number">{{ index + 1 }}.</span>
+                <span class="tv-sidebar-item-link pointer" @click="clickItem(item)">
+                  <span v-html="highlightText(item.title, searchQuery)"></span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </template>
       <template v-else>

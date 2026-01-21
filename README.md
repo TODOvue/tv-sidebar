@@ -39,9 +39,11 @@ A versatile and flexible Vue 3 sidebar component with multiple display modes: li
 - [License](#license)
 
 ## Features
-- **Three display modes**: List, Categories (labels), and Image
+- **Four display modes**: List, Categories (labels), Image, and Grouped/Categorized
+- **Hierarchical grouping**: Organize content with collapsible sections and item counters
 - **Event-driven interactions**: No built-in navigation; emits click events with full objects
 - **Item limit**: Control how many items to display with the `limit` prop
+- **Search/Filter**: Real-time filtering across all display modes including grouped content
 - **Optional clickable images**: Enable with `clickable` to emit click events for images
 - **Label/Category support**: Display colored category labels with click events
 - **Responsive design**: Adapts to different screen sizes
@@ -153,6 +155,7 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 | clickable         | Boolean | `false`       | When `true` and `isImage`, the image becomes interactive and emits a `click` event with the image object. When `false`, image is static. |
 | searchable        | Boolean | `false`       | Enables search/filter input for filtering items in real-time across all display modes.                                                   |
 | searchPlaceholder | String  | `'Search...'` | Placeholder text for the search input field.                                                                                             |
+| grouped           | Boolean | `false`       | Enables grouped/categorized mode with collapsible sections. Requires `data.groups` array instead of `data.list` or `data.labels`.        |
 
 ## Events
 | Event name (kebab) | Emits (camel) | Description                                                                                                                                         |
@@ -340,6 +343,77 @@ function handleSearch(query) {
 </template>
 ```
 
+### Grouped/Categorized Mode
+Organize content hierarchically with collapsible groups and item counters:
+```vue
+<script setup>
+import { TvSidebar } from '@todovue/tv-sidebar'
+
+const groupedData = {
+  title: 'Blog Posts',
+  groups: [
+    {
+      id: 1,
+      name: 'Technical',
+      collapsed: false,
+      items: [
+        { id: 1, title: '10 Tips for Creating a Successful YouTube Channel', link: '/blog/youtube' },
+        { id: 2, title: 'How to Create High-Quality Visual Content', link: '/blog/visual-content' },
+        { id: 3, title: 'The Power of Email Marketing', link: '/blog/email-marketing' }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Lifestyle',
+      collapsed: true,
+      items: [
+        { id: 4, title: 'Why You Should Consider a Plant-Based Diet', link: '/blog/plant-based' },
+        { id: 5, title: 'The Pros and Cons of Remote Work', link: '/blog/remote-work' }
+      ]
+    },
+    {
+      id: 3,
+      name: 'Travel',
+      collapsed: false,
+      items: [
+        { id: 6, title: 'The Top 5 Destinations for Adventure Travel', link: '/blog/adventure' }
+      ]
+    }
+  ]
+}
+
+function handleItemClick(item) {
+  console.log('Item clicked:', item)
+}
+</script>
+
+<template>
+  <!-- Basic grouped mode -->
+  <TvSidebar 
+    grouped 
+    :data="groupedData" 
+    @click="handleItemClick"
+  />
+  
+  <!-- Grouped mode with search -->
+  <TvSidebar 
+    grouped 
+    searchable 
+    search-placeholder="Search posts..."
+    :data="groupedData" 
+    @click="handleItemClick"
+  />
+  
+  <!-- Grouped mode with limit (applies to items per group) -->
+  <TvSidebar 
+    grouped 
+    :limit="2"
+    :data="groupedData" 
+    @click="handleItemClick"
+  />
+</template>
+```
+
 ### Nuxt Integration
 ```diff
 - Using with Nuxt routing:
@@ -382,6 +456,23 @@ Nuxt works without router integration in the component. Handle navigation in you
     alt: string,    // Alt text for accessibility
     link?: string   // optional; use in your click handler for manual navigation
   }
+}
+```
+
+### Grouped Mode Data
+```typescript
+{
+  title: string,
+  groups: Array<{
+    id: number | string,
+    name: string,           // Group/category name
+    collapsed: boolean,     // Initial collapsed state
+    items: Array<{
+      id: number | string,
+      title: string,
+      link?: string        // optional; use in your click handler if you want to navigate
+    }>
+  }>
 }
 ```
 

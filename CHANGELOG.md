@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added text highlighting for search matches in list and label modes using `<mark>` tags.
 - Added search input UI with responsive styling for both dark and light modes.
 - Added two new demo variants showcasing searchable list and searchable labels functionality.
+- Added `grouped` prop to enable hierarchical organization of content with collapsible sections.
+- Added support for grouped/categorized mode with collapsible group headers and item counters.
+- Added smooth animations for expanding/collapsing groups.
+- Added search/filter functionality within grouped mode that filters across all groups.
+- Added three new demo variants showcasing grouped mode: basic, with search, and with limit.
+- Added grouped mode data structure documentation and usage examples.
 
 ### Dependencies
 - Updated the `@todovue/tv-demo` dependency to `^1.4.4`.

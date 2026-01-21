@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated the `sass` dependency to `^1.97.2`.
 - Updated the `vite` dependency to `^7.3.1`.
 
+### Changed
+- Refined component styling by adding consistent padding for better spacing.
+- Enhanced hover effects to provide clearer visual feedback during user interaction.
+
 ## [2.1.2] - 2025-12-27
 
 ### Added

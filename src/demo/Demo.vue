@@ -8,12 +8,13 @@ import { demos } from './utils/mocks.js'
   <TvDemo
     :component="TvSidebar"
     :variants="demos"
+    :manual-emits="['click']"
     hide-background
     component-name="TvSidebar"
     npm-install="@todovue/tv-sidebar"
     source-link="https://github.com/TODOvue/tv-sidebar"
     url-clone="https://github.com/TODOvue/tv-sidebar.git"
-    version="2.1.2"
+    version="2.2.0"
   />
 </template>
 

@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-01-20
+
+### Added
+- Added `isOutline` and `size` props to `TvSidebar` to control `TvLabel` appearance.
+- Added `searchable` prop to enable real-time search/filter functionality across all display modes (list, labels, image).
+- Added `searchPlaceholder` prop to customize the search input placeholder text.
+- Added `@search` event that emits the current search query whenever it changes.
+- Added text highlighting for search matches in list and label modes using `<mark>` tags.
+- Added search input UI with responsive styling for both dark and light modes.
+- Added two new demo variants showcasing searchable list and searchable labels functionality.
+- Added `grouped` prop to enable hierarchical organization of content with collapsible sections.
+- Added support for grouped/categorized mode with collapsible group headers and item counters.
+- Added smooth animations for expanding/collapsing groups.
+- Added search/filter functionality within grouped mode that filters across all groups.
+- Added three new demo variants showcasing grouped mode: basic, with search, and with limit.
+- Added grouped mode data structure documentation and usage examples.
+- Added `newLabelText` prop and `isNew` item property to show a customizable "New" badge on sidebar items.
+
+### Dependencies
+- Updated the `@todovue/tv-demo` dependency to `^1.4.4`.
+- Updated the `@todovue/tv-label` dependency to `^1.2.1`.
+- Updated the `sass` dependency to `^1.97.2`.
+- Updated the `vite` dependency to `^7.3.1`.
+
+### Changed
+- Refined component styling by adding consistent padding for better spacing.
+- Enhanced hover effects to provide clearer visual feedback during user interaction.
+
+### Removed
+- Eliminated the unused `clickLabel` event emission to clean up the component API and improve internal efficiency.
+
 ## [2.1.2] - 2025-12-27
 
 ### Added
@@ -160,6 +191,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minimal bundle size with external Vue dependency
 - Node.js >= 20.19.0 required
 
+[2.2.0]: https://github.com/TODOvue/tv-sidebar/pull/9/files
 [2.1.2]: https://github.com/TODOvue/tv-sidebar/pull/8/files
 [2.1.1]: https://github.com/TODOvue/tv-sidebar/pull/7/files
 [2.1.0]: https://github.com/TODOvue/tv-sidebar/pull/6/files

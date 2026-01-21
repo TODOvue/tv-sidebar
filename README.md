@@ -16,12 +16,11 @@ A versatile and flexible Vue 3 sidebar component with multiple display modes: li
 
 > Demo: https://ui.todovue.blog/sidebar
 
----
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
 - [Quick Start (SPA)](#quick-start-spa)
-- [Nuxt 3 / SSR Usage](#nuxt-3--ssr-usage)
+- [Nuxt 4 / SSR Usage](#nuxt-4--ssr-usage)
 - [Component Registration Options](#component-registration-options)
 - [Props](#props)
 - [Events](#events)
@@ -39,11 +38,12 @@ A versatile and flexible Vue 3 sidebar component with multiple display modes: li
 - [Contributing](#contributing)
 - [License](#license)
 
----
 ## Features
-- **Three display modes**: List, Categories (labels), and Image
+- **Four display modes**: List, Categories (labels), Image, and Grouped/Categorized
+- **Hierarchical grouping**: Organize content with collapsible sections and item counters
 - **Event-driven interactions**: No built-in navigation; emits click events with full objects
 - **Item limit**: Control how many items to display with the `limit` prop
+- **Search/Filter**: Real-time filtering across all display modes including grouped content
 - **Optional clickable images**: Enable with `clickable` to emit click events for images
 - **Label/Category support**: Display colored category labels with click events
 - **Responsive design**: Adapts to different screen sizes
@@ -51,7 +51,6 @@ A versatile and flexible Vue 3 sidebar component with multiple display modes: li
 - **Customizable styling**: Built with SCSS for easy theming
 - **Tree-shakeable**: Vue marked as external dependency
 
----
 ## Installation
 Using npm:
 ```bash
@@ -68,7 +67,6 @@ pnpm add @todovue/tv-sidebar
 
 > **Note**: This component depends on `@todovue/tv-label` for the categories mode.
 
----
 ## Quick Start (SPA)
 Global registration (main.js / main.ts):
 ```js
@@ -111,8 +109,7 @@ const sidebarData = {
 </template>
 ```
 
----
-## Nuxt 3 / SSR Usage
+## Nuxt 4 / SSR Usage
 Add the stylesheet to your `nuxt.config.ts`:
 ```ts
 // nuxt.config.ts
@@ -139,7 +136,6 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 </script>
 ```
 
----
 ## Component Registration Options
 | Approach                                                            | When to use                                    |
 |---------------------------------------------------------------------|------------------------------------------------|
@@ -147,34 +143,39 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 | Local named import `{ TvSidebar }`                                  | Isolated / code-split contexts                 |
 | Direct default import `import TvSidebar from '@todovue/tv-sidebar'` | Single usage or manual registration            |
 
----
 ## Props
-| Prop      | Type    | Default | Description                                                                                                                              |
-|-----------|---------|---------|------------------------------------------------------------------------------------------------------------------------------------------|
-| data      | Object  | `{}`    | Main data object containing title and content (list, labels, or image).                                                                  |
-| isImage   | Boolean | `false` | Enables image display mode.                                                                                                              |
-| isLabel   | Boolean | `false` | Enables categories/labels display mode.                                                                                                  |
-| limit     | Number  | `0`     | Maximum number of items to display (0 = show all).                                                                                       |
-| clickable | Boolean | `false` | When `true` and `isImage`, the image becomes interactive and emits a `click` event with the image object. When `false`, image is static. |
+| Prop              | Type    | Default       | Description                                                                                                                              |
+|-------------------|---------|---------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| data              | Object  | `{}`          | Main data object containing title and content (list, labels, or image).                                                                  |
+| isImage           | Boolean | `false`       | Enables image display mode.                                                                                                              |
+| isLabel           | Boolean | `false`       | Enables categories/labels display mode.                                                                                                  |
+| isOutline         | Boolean | `false`       | Apply outline style to labels (only works with `isLabel`).                                                                               |
+| size              | String  | `'md'`        | Sets size of labels (`sm`, `md`, `lg`). Only works with `isLabel`.                                                                       |
+| limit             | Number  | `0`           | Maximum number of items to display (0 = show all).                                                                                       |
+| clickable         | Boolean | `false`       | When `true` and `isImage`, the image becomes interactive and emits a `click` event with the image object. When `false`, image is static. |
+| searchable        | Boolean | `false`       | Enables search/filter input for filtering items in real-time across all display modes.                                                   |
+| searchPlaceholder | String  | `'Search...'` | Placeholder text for the search input field.                                                                                             |
+| grouped           | Boolean | `false`       | Enables grouped/categorized mode with collapsible sections. Requires `data.groups` array instead of `data.list` or `data.labels`.        |
+| newLabelText      | String  | `'New'`       | Text to display in the "New" badge when `isNew` is true on an item.                                                                      |
+| newLabelColor     | String  | `'#FF3B30'`   | Hex color code for the "New" badge background.                                                                                           |
 
----
 ## Events
 | Event name (kebab) | Emits (camel) | Description                                                                                                                                         |
 |--------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `clickLabel`       | `clickLabel`  | Emitted when a label/category is clicked (also emits `click` with same object).                                                                     |
 | `click`            | `click`       | Emitted when a list item is clicked, when a label is clicked, and when an image is clicked (if `clickable`). The payload is always the full object. |
+| `search`           | `search`      | Emitted when the search query changes. The payload is the search string.                                                                            |
 
 Usage:
 ```vue
 <TvSidebar 
   isLabel 
+  searchable
   :data="categoriesData" 
-  @clickLabel="handleCategoryClick"
   @click="handleAnyClick"
+  @search="handleSearch"
 />
 ```
 
----
 ## Usage Examples
 
 ### Default List Mode
@@ -288,6 +289,155 @@ Limit the number of displayed items:
 </template>
 ```
 
+### With Search/Filter
+Enable real-time search and filtering across all display modes:
+```vue
+<script setup>
+import { TvSidebar } from '@todovue/tv-sidebar'
+
+const listData = {
+  title: 'Blog Posts',
+  list: [
+    { id: 1, title: 'Getting Started with Vue 3', link: '/blog/vue-3' },
+    { id: 2, title: 'Understanding Composition API', link: '/blog/composition-api' },
+    { id: 3, title: 'Building Reactive Forms', link: '/blog/reactive-forms' }
+  ]
+}
+
+const categoriesData = {
+  title: 'Categories',
+  labels: [
+    { id: 1, name: 'Vue.js', color: '#4FC08D' },
+    { id: 2, name: 'JavaScript', color: '#F0DB4F' },
+    { id: 3, name: 'TypeScript', color: '#007ACC' }
+  ]
+}
+
+function handleSearch(query) {
+  console.log('Search query:', query)
+  // Optionally perform additional actions
+}
+</script>
+
+<template>
+  <!-- Searchable list with default placeholder -->
+  <TvSidebar 
+    :data="listData" 
+    searchable 
+    @search="handleSearch"
+  />
+  
+  <!-- Searchable labels with custom placeholder -->
+  <TvSidebar 
+    isLabel 
+    :data="categoriesData" 
+    searchable 
+    search-placeholder="Filter categories..."
+    @search="handleSearch"
+  />
+  
+  <!-- Searchable with limit (filtering applied before limiting) -->
+  <TvSidebar 
+    :data="listData" 
+    searchable 
+    :limit="5"
+  />
+</template>
+```
+
+### Grouped/Categorized Mode
+Organize content hierarchically with collapsible groups and item counters:
+```vue
+<script setup>
+import { TvSidebar } from '@todovue/tv-sidebar'
+
+const groupedData = {
+  title: 'Blog Posts',
+  groups: [
+    {
+      id: 1,
+      name: 'Technical',
+      collapsed: false,
+      items: [
+        { id: 1, title: '10 Tips for Creating a Successful YouTube Channel', link: '/blog/youtube' },
+        { id: 2, title: 'How to Create High-Quality Visual Content', link: '/blog/visual-content' },
+        { id: 3, title: 'The Power of Email Marketing', link: '/blog/email-marketing' }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Lifestyle',
+      collapsed: true,
+      items: [
+        { id: 4, title: 'Why You Should Consider a Plant-Based Diet', link: '/blog/plant-based' },
+        { id: 5, title: 'The Pros and Cons of Remote Work', link: '/blog/remote-work' }
+      ]
+    },
+    {
+      id: 3,
+      name: 'Travel',
+      collapsed: false,
+      items: [
+        { id: 6, title: 'The Top 5 Destinations for Adventure Travel', link: '/blog/adventure' }
+      ]
+    }
+  ]
+}
+
+function handleItemClick(item) {
+  console.log('Item clicked:', item)
+}
+</script>
+
+<template>
+  <!-- Basic grouped mode -->
+  <TvSidebar 
+    grouped 
+    :data="groupedData" 
+    @click="handleItemClick"
+  />
+  
+  <!-- Grouped mode with search -->
+  <TvSidebar 
+    grouped 
+    searchable 
+    search-placeholder="Search posts..."
+    :data="groupedData" 
+    @click="handleItemClick"
+  />
+  
+  <!-- Grouped mode with limit (applies to items per group) -->
+  <TvSidebar 
+    grouped 
+    :limit="2"
+    :data="groupedData" 
+    @click="handleItemClick"
+  />
+</template>
+```
+
+### New Items Indicator
+Mark items as new by adding `isNew: true` to the item object. Customize the label text with `newLabelText`.
+
+```vue
+<script setup>
+import { TvSidebar } from '@todovue/tv-sidebar'
+
+const listData = {
+  title: "Updates",
+  list: [
+    { id: 1, title: "Stable Release", link: "/v1", isNew: true },
+    { id: 2, title: "Beta Release", link: "/beta" }
+  ]
+}
+</script>
+
+<template>
+  <TvSidebar :data="listData" new-label-text="UPDATED" />
+</template>
+```
+```
+
 ### Nuxt Integration
 ```diff
 - Using with Nuxt routing:
@@ -295,7 +445,6 @@ Limit the number of displayed items:
 ```
 Nuxt works without router integration in the component. Handle navigation in your click handlers (see Navigation Handling below).
 
----
 ## Data Structure
 
 ### List Mode Data
@@ -305,7 +454,8 @@ Nuxt works without router integration in the component. Handle navigation in you
   list: Array<{
     id: number | string,
     title: string,
-    link?: string // optional; use in your click handler if you want to navigate
+    link?: string, // optional; use in your click handler if you want to navigate
+    isNew?: boolean // optional; displays a 'New' badge
   }>
 }
 ```
@@ -334,7 +484,24 @@ Nuxt works without router integration in the component. Handle navigation in you
 }
 ```
 
----
+### Grouped Mode Data
+```typescript
+{
+  title: string,
+  groups: Array<{
+    id: number | string,
+    name: string,           // Group/category name
+    collapsed: boolean,     // Initial collapsed state
+    items: Array<{
+      id: number | string,
+      title: string,
+      link?: string,       // optional; use in your click handler if you want to navigate
+      isNew?: boolean      // optional; displays a 'New' badge
+    }>
+  }>
+}
+```
+
 ## Styling
 The component uses SCSS for styling. Styles are automatically included when you import the component. The sidebar includes:
 - Clean, minimal design
@@ -362,7 +529,6 @@ To customize styles, you can override the CSS classes:
 }
 ```
 
----
 ## Navigation Handling
 Since the component does not perform navigation, handle it in your click handlers. Example with Vue Router:
 ```vue
@@ -390,21 +556,18 @@ function handleClick(item) {
 </template>
 ```
 
----
 ## Accessibility
 - Semantic structure with clear headings
 - Alt text support for images
 - Interactive items emit click events; if you need keyboard accessibility, consider handling `keydown` (Enter/Space) on your side or wrapping with accessible elements/roles
 - Color contrast considerations for labels
 
----
 ## SSR Notes
 - No direct DOM access (`window` / `document`) → safe for SSR
 - Compatible with Nuxt 3 out of the box
 - Styles are bundled and auto-imported
 - No router/nuxt-link dependency inside the component
 
----
 ## Development
 ```bash
 git clone https://github.com/TODOvue/tv-sidebar.git
@@ -415,19 +578,15 @@ npm run build   # build library
 ```
 Local demo served from Vite using `index.html` + `src/demo` examples.
 
----
 ## Contributing
 PRs and issues welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 
----
 ## License
 MIT © TODOvue
 
----
 ## Dependencies
 - `vue` (^3.0.0) - Peer dependency
 - `@todovue/tv-label` - Used for category/label display mode
 
----
 ### Attributions
 Crafted with ❤️ for the TODOvue component ecosystem by Cristhian Daza

@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added `isOutline` and `size` props to `TvSidebar` to control `TvLabel` appearance.
+
 ### Dependencies
 - Updated the `@todovue/tv-demo` dependency to `^1.4.4`.
 - Updated the `@todovue/tv-label` dependency to `^1.2.1`.

@@ -16,12 +16,11 @@ A versatile and flexible Vue 3 sidebar component with multiple display modes: li
 
 > Demo: https://ui.todovue.blog/sidebar
 
----
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
 - [Quick Start (SPA)](#quick-start-spa)
-- [Nuxt 3 / SSR Usage](#nuxt-3--ssr-usage)
+- [Nuxt 4 / SSR Usage](#nuxt-4--ssr-usage)
 - [Component Registration Options](#component-registration-options)
 - [Props](#props)
 - [Events](#events)
@@ -39,7 +38,6 @@ A versatile and flexible Vue 3 sidebar component with multiple display modes: li
 - [Contributing](#contributing)
 - [License](#license)
 
----
 ## Features
 - **Three display modes**: List, Categories (labels), and Image
 - **Event-driven interactions**: No built-in navigation; emits click events with full objects
@@ -51,7 +49,6 @@ A versatile and flexible Vue 3 sidebar component with multiple display modes: li
 - **Customizable styling**: Built with SCSS for easy theming
 - **Tree-shakeable**: Vue marked as external dependency
 
----
 ## Installation
 Using npm:
 ```bash
@@ -68,7 +65,6 @@ pnpm add @todovue/tv-sidebar
 
 > **Note**: This component depends on `@todovue/tv-label` for the categories mode.
 
----
 ## Quick Start (SPA)
 Global registration (main.js / main.ts):
 ```js
@@ -111,8 +107,7 @@ const sidebarData = {
 </template>
 ```
 
----
-## Nuxt 3 / SSR Usage
+## Nuxt 4 / SSR Usage
 Add the stylesheet to your `nuxt.config.ts`:
 ```ts
 // nuxt.config.ts
@@ -139,7 +134,6 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 </script>
 ```
 
----
 ## Component Registration Options
 | Approach                                                            | When to use                                    |
 |---------------------------------------------------------------------|------------------------------------------------|
@@ -147,17 +141,17 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 | Local named import `{ TvSidebar }`                                  | Isolated / code-split contexts                 |
 | Direct default import `import TvSidebar from '@todovue/tv-sidebar'` | Single usage or manual registration            |
 
----
 ## Props
 | Prop      | Type    | Default | Description                                                                                                                              |
 |-----------|---------|---------|------------------------------------------------------------------------------------------------------------------------------------------|
 | data      | Object  | `{}`    | Main data object containing title and content (list, labels, or image).                                                                  |
 | isImage   | Boolean | `false` | Enables image display mode.                                                                                                              |
 | isLabel   | Boolean | `false` | Enables categories/labels display mode.                                                                                                  |
+| isOutline | Boolean | `false` | Apply outline style to labels (only works with `isLabel`).                                                                               |
+| size      | String  | `null`  | Sets size of labels (`sm`, `md`, `lg`). Only works with `isLabel`.                                                                       |
 | limit     | Number  | `0`     | Maximum number of items to display (0 = show all).                                                                                       |
 | clickable | Boolean | `false` | When `true` and `isImage`, the image becomes interactive and emits a `click` event with the image object. When `false`, image is static. |
 
----
 ## Events
 | Event name (kebab) | Emits (camel) | Description                                                                                                                                         |
 |--------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -174,7 +168,6 @@ Usage:
 />
 ```
 
----
 ## Usage Examples
 
 ### Default List Mode
@@ -295,7 +288,6 @@ Limit the number of displayed items:
 ```
 Nuxt works without router integration in the component. Handle navigation in your click handlers (see Navigation Handling below).
 
----
 ## Data Structure
 
 ### List Mode Data
@@ -334,7 +326,6 @@ Nuxt works without router integration in the component. Handle navigation in you
 }
 ```
 
----
 ## Styling
 The component uses SCSS for styling. Styles are automatically included when you import the component. The sidebar includes:
 - Clean, minimal design
@@ -362,7 +353,6 @@ To customize styles, you can override the CSS classes:
 }
 ```
 
----
 ## Navigation Handling
 Since the component does not perform navigation, handle it in your click handlers. Example with Vue Router:
 ```vue
@@ -390,21 +380,18 @@ function handleClick(item) {
 </template>
 ```
 
----
 ## Accessibility
 - Semantic structure with clear headings
 - Alt text support for images
 - Interactive items emit click events; if you need keyboard accessibility, consider handling `keydown` (Enter/Space) on your side or wrapping with accessible elements/roles
 - Color contrast considerations for labels
 
----
 ## SSR Notes
 - No direct DOM access (`window` / `document`) → safe for SSR
 - Compatible with Nuxt 3 out of the box
 - Styles are bundled and auto-imported
 - No router/nuxt-link dependency inside the component
 
----
 ## Development
 ```bash
 git clone https://github.com/TODOvue/tv-sidebar.git
@@ -415,19 +402,15 @@ npm run build   # build library
 ```
 Local demo served from Vite using `index.html` + `src/demo` examples.
 
----
 ## Contributing
 PRs and issues welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 
----
 ## License
 MIT © TODOvue
 
----
 ## Dependencies
 - `vue` (^3.0.0) - Peer dependency
 - `@todovue/tv-label` - Used for category/label display mode
 
----
 ### Attributions
 Crafted with ❤️ for the TODOvue component ecosystem by Cristhian Daza

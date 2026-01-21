@@ -23,6 +23,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  isOutline: {
+    type: Boolean,
+    default: false,
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value),
+  },
 })
 
 const emit = defineEmits(['clickLabel', 'click']);
@@ -62,6 +71,8 @@ const {
             v-for="label in limitedList('labels')"
             :key="label.id"
             :color="label.color"
+            :is-outline="isOutline"
+            :size="size"
             @click="clickLabel(label)"
           >
             {{ label.name }}

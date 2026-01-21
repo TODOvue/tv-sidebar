@@ -4,6 +4,7 @@ import Categories from './demos/categories.vue?raw';
 import CategoriesWithLimit from './demos/categoriesWithLimit.vue?raw';
 import Image from './demos/image.vue?raw';
 import ImageClickable from './demos/imageClickable.vue?raw';
+import CategoriesCustom from './demos/categoriesCustom.vue?raw';
 
 const list = [
   {
@@ -308,5 +309,21 @@ export const demos = [
       onClick: onClickItem,
     },
     html: ImageClickable,
-  }
+  },
+  {
+    id: 7,
+    title: "TvSidebar shows a list of categories with outline and size sm",
+    description: "A sidebar showing a list of categories with outline style and small size.",
+    propsData: {
+      isLabel: true,
+      isOutline: true,
+      size: "sm",
+      data: {
+        title: "Categories",
+        labels: labels,
+      },
+      onClick: onClickItem,
+    },
+    html: CategoriesCustom,
+  },
 ];

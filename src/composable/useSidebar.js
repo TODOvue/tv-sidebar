@@ -118,7 +118,7 @@ const useSidebar = (props, emit, searchQuery) => {
         ...group,
         items: filteredItems
       };
-    }).filter(group => group.items.length > 0); // Hide empty groups
+    }).filter(group => group.items.length > 0);
   });
 
   const getGroupedList = () => {

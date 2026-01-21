@@ -155,7 +155,6 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 ## Events
 | Event name (kebab) | Emits (camel) | Description                                                                                                                                         |
 |--------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `clickLabel`       | `clickLabel`  | Emitted when a label/category is clicked (also emits `click` with same object).                                                                     |
 | `click`            | `click`       | Emitted when a list item is clicked, when a label is clicked, and when an image is clicked (if `clickable`). The payload is always the full object. |
 
 Usage:

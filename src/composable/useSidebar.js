@@ -22,7 +22,6 @@ const useSidebar = (props, emit) => {
   };
   
   const clickLabel = (label) => {
-    emit('clickLabel', label);
     emit('click', label);
   };
 

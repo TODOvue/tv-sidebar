@@ -34,7 +34,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['clickLabel', 'click']);
+const emit = defineEmits(['click']);
 
 const {
   limitedList,

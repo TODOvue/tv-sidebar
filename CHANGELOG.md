@@ -20,6 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refined component styling by adding consistent padding for better spacing.
 - Enhanced hover effects to provide clearer visual feedback during user interaction.
 
+### Removed
+- Eliminated the unused `clickLabel` event emission to clean up the component API and improve internal efficiency.
+
 ## [2.1.2] - 2025-12-27
 
 ### Added

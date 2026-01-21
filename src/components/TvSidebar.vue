@@ -1,4 +1,5 @@
 <script setup>
+import { ref, watch } from 'vue';
 import { TvLabel } from '@todovue/tv-label';
 import useSidebar from '../composable/useSidebar.js';
 
@@ -32,16 +33,31 @@ const props = defineProps({
     default: 'md',
     validator: (value) => ['sm', 'md', 'lg'].includes(value),
   },
+  searchable: {
+    type: Boolean,
+    default: false,
+  },
+  searchPlaceholder: {
+    type: String,
+    default: 'Search...',
+  },
 })
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(['click', 'search']);
+
+const searchQuery = ref('');
+
+watch(searchQuery, (newValue) => {
+  emit('search', newValue);
+});
 
 const {
-  limitedList,
+  filteredList,
+  highlightText,
   clickLabel,
   clickItem,
   clickImage,
-} = useSidebar(props, emit);
+} = useSidebar(props, emit, searchQuery);
 </script>
 
 <template>
@@ -51,6 +67,14 @@ const {
         <div class="tv-sidebar-title">
           <h1>{{ data.title }}</h1>
           <div class="tv-sidebar-title-separator"></div>
+        </div>
+        <div v-if="searchable" class="tv-sidebar-search">
+          <input
+            v-model="searchQuery"
+            type="text"
+            :placeholder="searchPlaceholder"
+            class="tv-sidebar-search-input"
+          />
         </div>
         <div class="tv-sidebar-image-container">
           <img
@@ -66,16 +90,24 @@ const {
           <h1>{{ data.title }}</h1>
           <div class="tv-sidebar-title-separator"></div>
         </div>
+        <div v-if="searchable" class="tv-sidebar-search">
+          <input
+            v-model="searchQuery"
+            type="text"
+            :placeholder="searchPlaceholder"
+            class="tv-sidebar-search-input"
+          />
+        </div>
         <div class="tv-sidebar-content-label">
           <tv-label
-            v-for="label in limitedList('labels')"
+            v-for="label in filteredList('labels')"
             :key="label.id"
             :color="label.color"
             :is-outline="isOutline"
             :size="size"
             @click="clickLabel(label)"
           >
-            {{ label.name }}
+            <span v-html="highlightText(label.name, searchQuery)"></span>
           </tv-label>
         </div>
       </template>
@@ -84,16 +116,24 @@ const {
           <h1>{{ data.title }}</h1>
           <div class="tv-sidebar-title-separator"></div>
         </div>
+        <div v-if="searchable" class="tv-sidebar-search">
+          <input
+            v-model="searchQuery"
+            type="text"
+            :placeholder="searchPlaceholder"
+            class="tv-sidebar-search-input"
+          />
+        </div>
         <div class="tv-sidebar-content">
           <ol
             class="tv-sidebar-content-ol"
-            v-for="(item, index) in limitedList('list')"
+            v-for="(item, index) in filteredList('list')"
             :key="item.id"
           >
             <li class="tv-sidebar-content-li">
               <span class="tv-sidebar-number">{{ index + 1 }}.</span>
               <span class="tv-sidebar-link pointer" @click="clickItem(item)">
-                {{ item.title }}
+                <span v-html="highlightText(item.title, searchQuery)"></span>
               </span>
             </li>
           </ol>

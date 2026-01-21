@@ -5,6 +5,8 @@ import CategoriesWithLimit from './demos/categoriesWithLimit.vue?raw';
 import Image from './demos/image.vue?raw';
 import ImageClickable from './demos/imageClickable.vue?raw';
 import CategoriesCustom from './demos/categoriesCustom.vue?raw';
+import SearchableList from './demos/searchableList.vue?raw';
+import SearchableLabels from './demos/searchableLabels.vue?raw';
 
 const list = [
   {
@@ -216,6 +218,10 @@ const onClickItem = (item) => {
   console.log("Item clicked:", item);
 }
 
+const onSearch = (query) => {
+  console.log("Search query:", query);
+}
+
 export const demos = [
   {
     id: 1,
@@ -325,5 +331,37 @@ export const demos = [
       onClick: onClickItem,
     },
     html: CategoriesCustom,
+  },
+  {
+    id: 8,
+    title: "TvSidebar with searchable list",
+    description: "A sidebar showing a searchable list of blog posts with real-time filtering.",
+    propsData: {
+      searchable: true,
+      data: {
+        title: "Most Popular Blogs",
+        list,
+      },
+      onClick: onClickItem,
+      onSearch: onSearch,
+    },
+    html: SearchableList,
+  },
+  {
+    id: 9,
+    title: "TvSidebar with searchable categories and custom placeholder",
+    description: "A sidebar showing searchable categories with a custom search placeholder.",
+    propsData: {
+      isLabel: true,
+      searchable: true,
+      searchPlaceholder: "Buscar categorías...",
+      data: {
+        title: "Categories",
+        labels: labels,
+      },
+      onClick: onClickItem,
+      onSearch: onSearch,
+    },
+    html: SearchableLabels,
   },
 ];

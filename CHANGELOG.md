@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added `isOutline` and `size` props to `TvSidebar` to control `TvLabel` appearance.
+- Added `searchable` prop to enable real-time search/filter functionality across all display modes (list, labels, image).
+- Added `searchPlaceholder` prop to customize the search input placeholder text.
+- Added `@search` event that emits the current search query whenever it changes.
+- Added text highlighting for search matches in list and label modes using `<mark>` tags.
+- Added search input UI with responsive styling for both dark and light modes.
+- Added two new demo variants showcasing searchable list and searchable labels functionality.
 
 ### Dependencies
 - Updated the `@todovue/tv-demo` dependency to `^1.4.4`.

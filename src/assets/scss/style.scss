@@ -22,6 +22,29 @@
       color: variables.$dark-text;
     }
   }
+
+  & .tv-sidebar-search-input {
+    background-color: variables.$dark-card-bg;
+    color: variables.$dark-text;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: auto;
+
+    &::placeholder {
+      color: rgba(variables.$dark-text, 0.5);
+    }
+
+    &:focus {
+      border-color: variables.$dark-button-bg;
+      outline: none;
+    }
+  }
+
+  mark {
+    background-color: variables.$dark-button-bg;
+    color: variables.$dark-text;
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
 }
 
 .light-mode {
@@ -44,6 +67,27 @@
       & .tv-sidebar-link {
         color: variables.$light-text;
       }
+    }
+
+    & .tv-sidebar-search-input {
+      background-color: variables.$light-card-bg;
+      color: variables.$light-text;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+
+      &::placeholder {
+        color: rgba(variables.$light-text, 0.5);
+      }
+
+      &:focus {
+        border-color: variables.$dark-button-bg;
+      }
+    }
+
+    mark {
+      background-color: #ffd700;
+      color: variables.$light-text;
+      padding: 2px 4px;
+      border-radius: 3px;
     }
   }
 }
@@ -79,6 +123,24 @@
         position: relative;
         display: block;
         margin-top: 5px;
+      }
+    }
+
+    &-search {
+      padding: 10px 20px;
+
+      &-input {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px 15px;
+        font-size: 14px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+
+        &:focus {
+          box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
       }
     }
 

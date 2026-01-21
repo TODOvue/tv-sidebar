@@ -142,28 +142,32 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 | Direct default import `import TvSidebar from '@todovue/tv-sidebar'` | Single usage or manual registration            |
 
 ## Props
-| Prop      | Type    | Default | Description                                                                                                                              |
-|-----------|---------|---------|------------------------------------------------------------------------------------------------------------------------------------------|
-| data      | Object  | `{}`    | Main data object containing title and content (list, labels, or image).                                                                  |
-| isImage   | Boolean | `false` | Enables image display mode.                                                                                                              |
-| isLabel   | Boolean | `false` | Enables categories/labels display mode.                                                                                                  |
-| isOutline | Boolean | `false` | Apply outline style to labels (only works with `isLabel`).                                                                               |
-| size      | String  | `null`  | Sets size of labels (`sm`, `md`, `lg`). Only works with `isLabel`.                                                                       |
-| limit     | Number  | `0`     | Maximum number of items to display (0 = show all).                                                                                       |
-| clickable | Boolean | `false` | When `true` and `isImage`, the image becomes interactive and emits a `click` event with the image object. When `false`, image is static. |
+| Prop              | Type    | Default       | Description                                                                                                                              |
+|-------------------|---------|---------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| data              | Object  | `{}`          | Main data object containing title and content (list, labels, or image).                                                                  |
+| isImage           | Boolean | `false`       | Enables image display mode.                                                                                                              |
+| isLabel           | Boolean | `false`       | Enables categories/labels display mode.                                                                                                  |
+| isOutline         | Boolean | `false`       | Apply outline style to labels (only works with `isLabel`).                                                                               |
+| size              | String  | `'md'`        | Sets size of labels (`sm`, `md`, `lg`). Only works with `isLabel`.                                                                       |
+| limit             | Number  | `0`           | Maximum number of items to display (0 = show all).                                                                                       |
+| clickable         | Boolean | `false`       | When `true` and `isImage`, the image becomes interactive and emits a `click` event with the image object. When `false`, image is static. |
+| searchable        | Boolean | `false`       | Enables search/filter input for filtering items in real-time across all display modes.                                                   |
+| searchPlaceholder | String  | `'Search...'` | Placeholder text for the search input field.                                                                                             |
 
 ## Events
 | Event name (kebab) | Emits (camel) | Description                                                                                                                                         |
 |--------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | `click`            | `click`       | Emitted when a list item is clicked, when a label is clicked, and when an image is clicked (if `clickable`). The payload is always the full object. |
+| `search`           | `search`      | Emitted when the search query changes. The payload is the search string.                                                                            |
 
 Usage:
 ```vue
 <TvSidebar 
   isLabel 
+  searchable
   :data="categoriesData" 
-  @clickLabel="handleCategoryClick"
   @click="handleAnyClick"
+  @search="handleSearch"
 />
 ```
 
@@ -277,6 +281,62 @@ Limit the number of displayed items:
   
   <!-- Show only first 8 categories -->
   <TvSidebar isLabel :data="categoriesData" :limit="8" />
+</template>
+```
+
+### With Search/Filter
+Enable real-time search and filtering across all display modes:
+```vue
+<script setup>
+import { TvSidebar } from '@todovue/tv-sidebar'
+
+const listData = {
+  title: 'Blog Posts',
+  list: [
+    { id: 1, title: 'Getting Started with Vue 3', link: '/blog/vue-3' },
+    { id: 2, title: 'Understanding Composition API', link: '/blog/composition-api' },
+    { id: 3, title: 'Building Reactive Forms', link: '/blog/reactive-forms' }
+  ]
+}
+
+const categoriesData = {
+  title: 'Categories',
+  labels: [
+    { id: 1, name: 'Vue.js', color: '#4FC08D' },
+    { id: 2, name: 'JavaScript', color: '#F0DB4F' },
+    { id: 3, name: 'TypeScript', color: '#007ACC' }
+  ]
+}
+
+function handleSearch(query) {
+  console.log('Search query:', query)
+  // Optionally perform additional actions
+}
+</script>
+
+<template>
+  <!-- Searchable list with default placeholder -->
+  <TvSidebar 
+    :data="listData" 
+    searchable 
+    @search="handleSearch"
+  />
+  
+  <!-- Searchable labels with custom placeholder -->
+  <TvSidebar 
+    isLabel 
+    :data="categoriesData" 
+    searchable 
+    search-placeholder="Filter categories..."
+    @search="handleSearch"
+  />
+  
+  <!-- Searchable with limit (filtering applied before limiting) -->
+  <TvSidebar 
+    :data="listData" 
+    searchable 
+    :limit="5"
+  />
 </template>
 ```
 

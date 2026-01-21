@@ -45,6 +45,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  newLabelText: {
+    type: String,
+    default: 'New',
+  },
+  newLabelColor: {
+    type: String,
+    default: '#EF233C',
+  },
 })
 
 const emit = defineEmits(['click', 'search']);
@@ -171,6 +179,15 @@ const isGroupCollapsed = (groupId) => {
               >
                 <span class="tv-sidebar-item-number">{{ index + 1 }}.</span>
                 <span class="tv-sidebar-item-link pointer" @click="clickItem(item)">
+                  <tv-label
+                    v-if="item.isNew"
+                    size="sm"
+                    class="tv-sidebar-new-label"
+                    is-outline
+                    :color="newLabelColor"
+                  >
+                    {{ newLabelText }}
+                  </tv-label>
                   <span v-html="highlightText(item.title, searchQuery)"></span>
                 </span>
               </div>
@@ -200,6 +217,15 @@ const isGroupCollapsed = (groupId) => {
             <li class="tv-sidebar-content-li">
               <span class="tv-sidebar-number">{{ index + 1 }}.</span>
               <span class="tv-sidebar-link pointer" @click="clickItem(item)">
+                <tv-label
+                  v-if="item.isNew"
+                  size="sm"
+                  class="tv-sidebar-new-label"
+                  is-outline
+                  :color="newLabelColor"
+                >
+                  {{ newLabelText }}
+                </tv-label>
                 <span v-html="highlightText(item.title, searchQuery)"></span>
               </span>
             </li>

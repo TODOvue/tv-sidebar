@@ -104,6 +104,11 @@
     display: flex;
     flex-direction: column;
 
+    .tv-sidebar-new-label {
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
     &-title {
       min-height: 35px;
       margin-top: 10px;

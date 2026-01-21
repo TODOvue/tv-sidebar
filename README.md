@@ -156,6 +156,8 @@ import { TvSidebar } from '@todovue/tv-sidebar'
 | searchable        | Boolean | `false`       | Enables search/filter input for filtering items in real-time across all display modes.                                                   |
 | searchPlaceholder | String  | `'Search...'` | Placeholder text for the search input field.                                                                                             |
 | grouped           | Boolean | `false`       | Enables grouped/categorized mode with collapsible sections. Requires `data.groups` array instead of `data.list` or `data.labels`.        |
+| newLabelText      | String  | `'New'`       | Text to display in the "New" badge when `isNew` is true on an item.                                                                      |
+| newLabelColor     | String  | `'#FF3B30'`   | Hex color code for the "New" badge background.                                                                                           |
 
 ## Events
 | Event name (kebab) | Emits (camel) | Description                                                                                                                                         |
@@ -414,6 +416,28 @@ function handleItemClick(item) {
 </template>
 ```
 
+### New Items Indicator
+Mark items as new by adding `isNew: true` to the item object. Customize the label text with `newLabelText`.
+
+```vue
+<script setup>
+import { TvSidebar } from '@todovue/tv-sidebar'
+
+const listData = {
+  title: "Updates",
+  list: [
+    { id: 1, title: "Stable Release", link: "/v1", isNew: true },
+    { id: 2, title: "Beta Release", link: "/beta" }
+  ]
+}
+</script>
+
+<template>
+  <TvSidebar :data="listData" new-label-text="UPDATED" />
+</template>
+```
+```
+
 ### Nuxt Integration
 ```diff
 - Using with Nuxt routing:
@@ -430,7 +454,8 @@ Nuxt works without router integration in the component. Handle navigation in you
   list: Array<{
     id: number | string,
     title: string,
-    link?: string // optional; use in your click handler if you want to navigate
+    link?: string, // optional; use in your click handler if you want to navigate
+    isNew?: boolean // optional; displays a 'New' badge
   }>
 }
 ```
@@ -470,7 +495,8 @@ Nuxt works without router integration in the component. Handle navigation in you
     items: Array<{
       id: number | string,
       title: string,
-      link?: string        // optional; use in your click handler if you want to navigate
+      link?: string,       // optional; use in your click handler if you want to navigate
+      isNew?: boolean      // optional; displays a 'New' badge
     }>
   }>
 }

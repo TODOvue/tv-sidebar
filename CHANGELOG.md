@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added search/filter functionality within grouped mode that filters across all groups.
 - Added three new demo variants showcasing grouped mode: basic, with search, and with limit.
 - Added grouped mode data structure documentation and usage examples.
+- Added `newLabelText` prop and `isNew` item property to show a customizable "New" badge on sidebar items.
 
 ### Dependencies
 - Updated the `@todovue/tv-demo` dependency to `^1.4.4`.

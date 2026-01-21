@@ -10,6 +10,8 @@ import SearchableLabels from './demos/searchableLabels.vue?raw';
 import GroupedList from './demos/groupedList.vue?raw';
 import GroupedListWithSearch from './demos/groupedListWithSearch.vue?raw';
 import GroupedListWithLimit from './demos/groupedListWithLimit.vue?raw';
+import DefaultWithNew from './demos/defaultWithNew.vue?raw';
+import DefaultWithNewColor from './demos/defaultWithNewColor.vue?raw';
 
 const list = [
   {
@@ -63,6 +65,13 @@ const list = [
     link: "/how-to-stay-motivated-as-a-blogger",
   },
 ];
+
+const listWithNew = list.map(item => {
+  if ([1, 3, 4].includes(item.id)) {
+    return { ...item, isNew: true };
+  }
+  return item;
+});
 
 const labels = [
   {
@@ -480,5 +489,34 @@ export const demos = [
       onClick: onClickItem,
     },
     html: GroupedListWithLimit,
+  },
+  {
+    id: 13,
+    title: "TvSidebar with New labels",
+    description: "A sidebar showing entries with a 'New' label, customizable via props.",
+    propsData: {
+      newLabelText: "NEW",
+      data: {
+        title: "What's New",
+        list: listWithNew,
+      },
+      onClick: onClickItem,
+    },
+    html: DefaultWithNew,
+  },
+  {
+    id: 14,
+    title: "TvSidebar with New labels and custom color",
+    description: "A sidebar showing entries with a 'New' label in a custom color.",
+    propsData: {
+      newLabelText: "NEW",
+      newLabelColor: "#1E6F6B",
+      data: {
+        title: "What's New",
+        list: listWithNew,
+      },
+      onClick: onClickItem,
+    },
+    html: DefaultWithNewColor,
   },
 ];

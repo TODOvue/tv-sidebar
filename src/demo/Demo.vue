@@ -1,5 +1,7 @@
 <script setup>
-import { defineAsyncComponent } from "vue"
+import { defineAsyncComponent } from 'vue'
+import { TvDemo } from '@todovue/tv-demo'
+
 const TvSidebar = defineAsyncComponent(/* webpackChunkName: "tvSidebar" */() => import('../components/TvSidebar.vue'))
 import { demos } from './utils/mocks.js'
 </script>
@@ -14,10 +16,6 @@ import { demos } from './utils/mocks.js'
     npm-install="@todovue/tv-sidebar"
     source-link="https://github.com/TODOvue/tv-sidebar"
     url-clone="https://github.com/TODOvue/tv-sidebar.git"
-    version="2.2.0"
+    version="2.2.1"
   />
 </template>
-
-<style scoped>
-
-</style>

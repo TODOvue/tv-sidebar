@@ -16,6 +16,6 @@ import { demos } from './utils/mocks.js'
     npm-install="@todovue/tv-sidebar"
     source-link="https://github.com/TODOvue/tv-sidebar"
     url-clone="https://github.com/TODOvue/tv-sidebar.git"
-    version="2.2.1"
+    version="2.2.2"
   />
 </template>

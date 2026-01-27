@@ -3,7 +3,6 @@ import vue from "@vitejs/plugin-vue";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  base: isDemo ? './' : undefined,
   plugins: [
     vue(),
     dts({
